@@ -1,0 +1,56 @@
+graph LR
+    App["App.jsx (Core Orchestrator)"]
+
+    %% Pages
+    Home["Home.jsx"]
+    Search["SearchResults.jsx"]
+    Checkout["Checkout.jsx"]
+    Confirm["BookingConfirmation.jsx"]
+    Dashboard["Dashboard.jsx"]
+    Auth["Auth.jsx"]
+    Help["Help.jsx"]
+
+    %% Components
+    SearchBox["SearchBox.jsx"]
+    FilterPanel["FilterPanel.jsx"]
+    BusCard["BusCard.jsx"]
+    SeatMap["SeatMap.jsx"]
+    PassengerForm["PassengerForm.jsx"]
+    PaymentForm["PaymentForm.jsx"]
+    FareSummary["FareSummary.jsx"]
+    CouponSection["CouponSection.jsx"]
+    Ticket["Ticket.jsx"]
+
+    %% Data / Utils
+    MockDb["mockDb.js"]
+    BusesData["buses.js"]
+    FareUtil["fare.js"]
+    Coupons["coupons.js"]
+
+    App --> Home
+    App --> Search
+    App --> Checkout
+    App --> Confirm
+    App --> Dashboard
+    App --> Auth
+    App --> Help
+
+    Home --> SearchBox
+    Search --> SearchBox
+    Search --> FilterPanel
+    Search --> BusCard
+    BusCard --> SeatMap
+    Search --> BusesData
+
+    Checkout --> PassengerForm
+    Checkout --> CouponSection
+    Checkout --> FareSummary
+    Checkout --> PaymentForm
+    CouponSection --> Coupons
+    Checkout --> FareUtil
+    Checkout --> MockDb
+
+    Confirm --> Ticket
+    Dashboard --> Ticket
+    Dashboard --> MockDb
+    Auth --> MockDb

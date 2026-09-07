@@ -1,0 +1,30 @@
+sequenceDiagram
+    autonumber
+    actor User as Passenger
+    participant App as App.jsx
+    participant Search as SearchResults
+    participant BusData as buses.js
+    participant Checkout as Checkout.jsx
+    participant Coupon as coupons.js
+    participant Pay as PaymentForm
+    participant DB as mockDb.js
+    participant Storage as localStorage
+
+    User->>App: Submits From, To, Date
+    App->>Search: Render with searchParams
+    Search->>BusData: getBusesForRoute(from, to, date)
+    BusData-->>Search: Return generated buses + seat matrices
+    User->>Search: Selects Bus & Berths (Max 6)
+    User->>App: Clicks "Continue to Checkout"
+    App->>Checkout: Mount with selectedSeats & checkoutBus
+    User->>Checkout: Enters passenger names & boarding point
+    User->>Coupon: Applies Promo Code (e.g. "FIRSTTRIP")
+    Coupon-->>Checkout: Validates & returns discount
+    User->>Pay: Submits payment (UPI/Card/NetBanking)
+    Pay->>Pay: Validates payment inputs (Luhn, Expiry, CVV)
+    Pay-->>Checkout: onPaymentSuccess()
+    Checkout->>DB: addBooking(payload)
+    DB->>Storage: Persist to safar_bookings
+    DB-->>App: Return new booking object (BK-xxxxxx)
+    App->>App: Clear checkout session buffer
+    App-->>User: Navigate to BookingConfirmation & Render Boarding Pass

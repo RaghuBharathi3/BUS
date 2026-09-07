@@ -1,0 +1,39 @@
+flowchart LR
+    User((Registered Passenger))
+    Guest((Guest Visitor))
+
+    subgraph SafarPlatform ["Safar Bus Reservation System"]
+        UC1([Search Intercity Buses])
+        UC2([Filter by AC/Sleeper/Price/Operator])
+        UC3([Inspect 2D Seat Matrix])
+        UC4([Select / Deselect Berths])
+        UC5([Apply Discount Promo Coupons])
+        UC6([Authenticate / Register Account])
+        UC7([Enter Passenger & Boarding Details])
+        UC8([Simulate Payment Process])
+        UC9([Generate & Print Boarding Pass])
+        UC10([View Trip History in Dashboard])
+        UC11([Cancel Booking & Calculate Refund])
+        UC12([Update User Profile])
+        UC13([Browse Support FAQs & Policies])
+    end
+
+    Guest --> UC1
+    Guest --> UC2
+    Guest --> UC3
+    Guest --> UC4
+    Guest --> UC6
+    Guest --> UC13
+
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC4
+    User --> UC5
+    User --> UC7
+    User --> UC8
+    User --> UC9
+    User --> UC10
+    User --> UC11
+    User --> UC12
+    User --> UC13

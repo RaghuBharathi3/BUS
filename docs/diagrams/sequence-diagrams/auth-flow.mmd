@@ -1,0 +1,39 @@
+sequenceDiagram
+    autonumber
+    actor User as User
+    participant AuthUI as Auth.jsx
+    participant DB as mockDb.js
+    participant Storage as localStorage
+    participant App as App.jsx
+
+    alt Registration Flow
+        User->>AuthUI: Enters Name, Email, Phone, Password
+        AuthUI->>AuthUI: Validate Email regex, Phone (10 digits), Pass (>=6 chars)
+        AuthUI->>DB: registerUser(name, email, password, phone)
+        DB->>Storage: Read safar_users
+        alt Email Exists
+            DB-->>AuthUI: Return { success: false, message: 'Email already registered.' }
+            AuthUI-->>User: Display error message
+        else Email Available
+            DB->>Storage: Append new user to safar_users
+            DB-->>AuthUI: Return { success: true, user }
+            AuthUI->>DB: loginUser(email, password)
+            DB->>Storage: Set safar_current_user
+            DB-->>AuthUI: Return { success: true, user }
+            AuthUI->>App: onAuthSuccess(user)
+            App-->>User: Navigate to Dashboard / Checkout
+        end
+    else Login Flow
+        User->>AuthUI: Enters Email & Password
+        AuthUI->>DB: loginUser(email, password)
+        DB->>Storage: Validate against safar_users
+        alt Valid Credentials
+            DB->>Storage: Set safar_current_user
+            DB-->>AuthUI: Return { success: true, user }
+            AuthUI->>App: onAuthSuccess(user)
+            App-->>User: Navigate to Dashboard / Checkout
+        else Invalid Credentials
+            DB-->>AuthUI: Return { success: false, message: 'Invalid email or password.' }
+            AuthUI-->>User: Display error alert
+        end
+    end

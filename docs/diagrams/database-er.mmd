@@ -1,0 +1,92 @@
+erDiagram
+    USER ||--o{ BOOKING : places
+    BUS ||--o{ SEAT : contains
+    BUS ||--o{ BOARDING_POINT : offers
+    BUS ||--o{ DROPPING_POINT : offers
+    BOOKING ||--|{ PASSENGER : includes
+    BOOKING ||--|| FARE_BREAKDOWN : calculates
+
+    USER {
+        string email PK
+        string password
+        string name
+        string phone
+        string gender
+        int age
+    }
+
+    BOOKING {
+        string id PK
+        string userEmail FK
+        string busId
+        string operatorName
+        string busType
+        string fromCity
+        string toCity
+        date travelDate
+        string departureTime
+        string arrivalTime
+        string_array seatsSelected
+        string paymentMethod
+        string status
+        timestamp createdAt
+        timestamp cancelledAt
+    }
+
+    PASSENGER {
+        string name
+        int age
+        string gender
+        string seatNo
+    }
+
+    FARE_BREAKDOWN {
+        int baseFare
+        int convenienceFee
+        int taxes
+        int discount
+        int totalFare
+    }
+
+    BUS {
+        string id PK
+        string operatorName
+        float operatorRating
+        int reviewsCount
+        string logoColor
+        string busType
+        boolean isAC
+        boolean isSleeper
+        string departureTime
+        string arrivalTime
+        string duration
+        int price
+        int availableSeats
+        int totalSeats
+    }
+
+    SEAT {
+        string seatNo PK
+        string deck
+        string type
+        int row
+        string column
+        boolean isWindow
+        boolean isBooked
+        boolean isLadies
+        float priceMultiplier
+    }
+
+    BOARDING_POINT {
+        string id PK
+        string name
+        string time
+        string details
+    }
+
+    DROPPING_POINT {
+        string id PK
+        string name
+        string time
+        string details
+    }

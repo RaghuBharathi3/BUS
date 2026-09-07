@@ -1,0 +1,37 @@
+graph TB
+    subgraph ClientTier ["Presentation Layer (Client Browser)"]
+        UI["React 19 SPA Interface<br/>(Vanilla CSS Design Tokens)"]
+        Router["Hash-Based Route Manager<br/>(#/, #/search, #/checkout, #/dashboard)"]
+        Views["Page Views<br/>Home | SearchResults | Checkout | Dashboard | Auth | Help"]
+        Components["Reusable UI Primitives<br/>BusCard | SeatMap | Ticket | PaymentForm | FilterPanel"]
+    end
+
+    subgraph StateTier ["State & Transaction Coordination Layer"]
+        AppState["React State Hooks<br/>(currentUser, selectedSeats, checkoutBus)"]
+        SessionStore["sessionStorage (Ephemeral Session Buffer)<br/>safar_checkout_bus, safar_selected_seats"]
+        LocalStore["localStorage (Persistent Simulated DB)<br/>safar_users, safar_bookings, safar_recent_searches"]
+    end
+
+    subgraph LogicTier ["Application Business Logic Engine"]
+        BusGen["Deterministic Procedural Engine<br/>getBusesForRoute(from, to, date)"]
+        SeatMatrix["Seat Matrix Generator<br/>generateSeatMatrix(isSleeper, busId)"]
+        FareEngine["Pricing & Tax Calculator<br/>calculateFare(basePrice, seats, coupon)"]
+        DiscountRules["Coupon & Promotion Validator<br/>calculateDiscount(FIRSTTRIP, ROUTE10, WEEKEND)"]
+        PaymentSim["Payment Gateway Simulator<br/>(UPI / Credit Card / NetBanking Validation)"]
+    end
+
+    subgraph MockDbTier ["Data Persistence Layer (MockDb API)"]
+        UserRepo["User Repository<br/>registerUser(), loginUser(), updateProfile()"]
+        BookingRepo["Booking Repository<br/>addBooking(), getBookings(), cancelBooking()"]
+        RefundPolicy["Refund Computation Engine<br/>(90% > 24h, 50% 12-24h, 10% < 12h)"]
+    end
+
+    %% Flow connections
+    UI --> Router
+    Router --> Views
+    Views --> Components
+    Components --> AppState
+    AppState <--> SessionStore
+    AppState <--> LogicTier
+    LogicTier --> MockDbTier
+    MockDbTier <--> LocalStore

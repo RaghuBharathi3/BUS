@@ -1,0 +1,18 @@
+sequenceDiagram
+    autonumber
+    actor User as Passenger
+    participant Dash as Dashboard.jsx
+    participant Modal as Cancellation Modal
+    participant DB as mockDb.js
+    participant Storage as localStorage
+
+    User->>Dash: Clicks "Cancel Booking" on active ticket
+    Dash->>Modal: Open modal with calculated refund amount
+    User->>Modal: Reviews policy & confirms cancellation
+    Modal->>DB: cancelBooking(bookingId)
+    DB->>Storage: Read safar_bookings
+    DB->>Storage: Update status='Cancelled' & cancelledAt=now
+    DB-->>Dash: Return { success: true, booking }
+    Dash->>DB: getBookings(currentUser.email)
+    DB-->>Dash: Return updated bookings list
+    Dash-->>User: Refresh list, move ticket to "Cancelled Tickets" tab

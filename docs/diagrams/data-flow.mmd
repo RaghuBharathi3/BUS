@@ -1,0 +1,26 @@
+flowchart TD
+    User([Passenger / User])
+    SearchInput[City & Date Input]
+    SeedGen[Seed Generation: hashSeed(from-to-date)]
+    BusGen[Procedural Bus & Seat Generator]
+    BusList[Filtered & Sorted Bus Results]
+    SeatSelect[Seat Selection Buffer (Max 6 Seats)]
+    PassengerInput[Passenger Details & Boarding Point]
+    CouponEngine[Coupon Validation Engine]
+    FareCalc[Fare Calculation: Base + Fees + Taxes - Discount]
+    PayGateway[Payment Gateway Simulation (UPI/Card/NetBank)]
+    StorageCommit[mockDb.addBooking -> localStorage]
+    TicketGen[Ticket / Digital Boarding Pass Display]
+
+    User -->|Enters criteria| SearchInput
+    SearchInput --> SeedGen
+    SeedGen --> BusGen
+    BusGen --> BusList
+    BusList -->|User selects bus & seats| SeatSelect
+    SeatSelect --> PassengerInput
+    PassengerInput --> CouponEngine
+    CouponEngine --> FareCalc
+    FareCalc --> PayGateway
+    PayGateway -->|Payment Approved| StorageCommit
+    StorageCommit --> TicketGen
+    TicketGen -->|View / Print Boarding Pass| User
