@@ -9,7 +9,7 @@
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
 - **Procedural Transit Synthesis**: Deterministically derives schedules, pricing, ratings, and amenity profiles for any Indian city pair without live database latency.
 - **Interactive Multi-Deck Seat Matrix**: Visualizes 2D layouts for Sleeper (Lower/Upper decks) and Seater coaches with live availability, booked states, and designated Ladies-Priority safety berths.
@@ -21,7 +21,7 @@
 
 ---
 
-## 🛠 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js v18.0.0+ (Node.js v22.x or v23.x recommended)
@@ -45,7 +45,7 @@ On Windows, you can also launch the server directly using [`start.bat`](file:///
 
 ---
 
-## 🧪 Code Quality & Verification
+##  Code Quality & Verification
 
 ```bash
 # Run Oxlint static analysis (0 warnings, 0 errors)
@@ -60,7 +60,7 @@ node verify-start-stop.cjs
 
 ---
 
-## 📚 Comprehensive Documentation & Research Package
+##  Comprehensive Documentation & Research Package
 
 All technical guides, academic project reports, research papers, diagrams, and authentic screenshots are organized in the [`docs/`](file:///c:/Users/Windows/Documents/BUS/docs/) directory:
 
